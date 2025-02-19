@@ -11,4 +11,4 @@ You can use the command 'pip install -r requirements.txt' to install them.
 
 
 ## Running
-These samples need Python 3.x to be install.
+These samples need Python 3.x to be installed.
