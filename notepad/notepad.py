@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import filedialog
@@ -52,6 +53,10 @@ def on_save():
 def on_save_as():
     filename = filedialog.asksaveasfilename(parent=root, filetypes=[('text file', '.txt')])
     if filename:
+        ext = os.path.splitext(filename)[-1]
+        if len(ext) == 0:
+            filename += '.txt'
+                    
         try:
             global doc_filename, contents
             text = contents.get(1.0, END)
@@ -62,6 +67,15 @@ def on_save_as():
 
         except Exception as e:
             print(f'{e}')
+            
+def on_ctrl_n(event):
+    on_new()
+    
+def on_ctrl_o(event):
+    on_open()
+    
+def on_ctrl_s(event):
+    on_save()
 
 
 def on_about():
@@ -126,6 +140,14 @@ statusbar.pack(side=BOTTOM, fill=X)
 # create text window
 contents = scrolledtext.ScrolledText(root, wrap=NONE)
 contents.pack(expand=1, fill=BOTH)
+
+# keyboard shortcuts
+root.bind_all('<Control-N>', on_ctrl_n)
+root.bind_all('<Control-n>', on_ctrl_n)
+root.bind_all('<Control-O>', on_ctrl_o)
+root.bind_all('<Control-o>', on_ctrl_o)
+root.bind_all('<Control-S>', on_ctrl_s)
+root.bind_all('<Control-s>', on_ctrl_s)
 
 # enter mainloop
 root.mainloop()
